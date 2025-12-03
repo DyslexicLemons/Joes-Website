@@ -9,13 +9,14 @@ import Contact from "./pages/Contact.jsx";
 import Admin from "./pages/Admin.jsx";
 
 // inside <Routes>:
-<Route path="/admin" element={<Admin />} />
+
 
 
 function App() {
   return (
     <Layout>
       <Routes>
+        <Route path="/admin" element={<Admin />} />
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/blog" element={<Blog />} />
