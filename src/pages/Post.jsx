@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { db } from "../firebase.js";
 import { doc, getDoc } from "firebase/firestore";
+import { useAuth } from "../context/AuthContext.jsx";
 
 function renderContent(content) {
   return content.split("\n\n").map((para, idx) => {
@@ -22,6 +23,7 @@ function renderContent(content) {
 
 function Post() {
   const { slug } = useParams();
+  const user = useAuth();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -52,7 +54,7 @@ function Post() {
     );
   }
 
-  if (!post) {
+  if (!post || (post.hidden && !user)) {
     return (
       <div className="container">
         <p>Post not found.</p>
@@ -67,7 +69,10 @@ function Post() {
     <div className="container">
       <article className="post">
         <header className="post-header">
-          <h1>{post.title}</h1>
+          <h1>
+            {post.title}
+            {post.hidden && <span className="hidden-badge">Hidden</span>}
+          </h1>
           <p className="card-subtitle">
             {post.date} · {post.tags && post.tags.join(", ")}
           </p>
