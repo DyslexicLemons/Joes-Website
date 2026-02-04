@@ -11,18 +11,27 @@ function Home() {
   return (
     <div className="container">
       <section className="hero">
-        <h1>Hi, I’m Joe 👋</h1>
+        <div className="hero-badge">Available for opportunities</div>
+        <h1 className="hero-title">
+          Hey, I'm <span className="name-highlight">Joe</span>
+        </h1>
         <p className="hero-subtitle">
-          Software developer with a Security+ background. I like building real
-          systems, understanding how they work under the hood, and explaining
-          them clearly.
+          I build <span className="text-accent">real systems</span> that people actually use.
+          Software developer with Security+ certification—I care about how things work
+          under the hood and making them secure by design.
         </p>
+        <div className="hero-skills">
+          <span className="skill-tag">Python</span>
+          <span className="skill-tag">React</span>
+          <span className="skill-tag">PostgreSQL</span>
+          <span className="skill-tag">Security+</span>
+        </div>
         <div className="hero-actions">
           <Link to="/projects" className="btn">
-            View projects
+            View my work
           </Link>
-          <Link to="/blog" className="btn-secondary">
-            Read the blog
+          <Link to="/contact" className="btn-secondary">
+            Get in touch
           </Link>
         </div>
       </section>
