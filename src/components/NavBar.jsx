@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/AuthContext.jsx";
 
 function NavBar() {
+  const user = useAuth();
+
   return (
     <header className="navbar">
       <div className="container nav-inner">
@@ -21,6 +24,7 @@ function NavBar() {
           <NavLink to="/contact" className="nav-link">
             Contact
           </NavLink>
+          {user && <span className="admin-indicator">Admin</span>}
         </nav>
       </div>
     </header>

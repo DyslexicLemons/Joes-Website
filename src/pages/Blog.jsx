@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../firebase.js";
+import { useAuth } from "../context/AuthContext.jsx";
 import PostCard from "../components/PostCard.jsx";
 
 function Blog() {
+  const user = useAuth();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -23,6 +26,8 @@ function Blog() {
     loadPosts();
   }, []);
 
+  const visiblePosts = user ? posts : posts.filter((p) => !p.hidden);
+
   if (loading) {
     return (
       <div className="container">
@@ -35,13 +40,18 @@ function Blog() {
     <div className="container">
       <header className="page-header">
         <h1>Blog</h1>
-        <p>Notes on what I’m learning, building, and breaking.</p>
+        <p>Notes on what I'm learning, building, and breaking.</p>
+        {user && (
+          <Link to="/blog/create" className="btn" style={{ marginTop: "1rem" }}>
+            Create new post
+          </Link>
+        )}
       </header>
 
       <div className="stack">
-        {posts.length === 0 && <p>No posts yet.</p>}
-        {posts.map((post) => (
-          <PostCard key={post.slug} post={post} />
+        {visiblePosts.length === 0 && <p>No posts yet.</p>}
+        {visiblePosts.map((post) => (
+          <PostCard key={post.slug} post={post} isAdmin={!!user} />
         ))}
       </div>
     </div>
