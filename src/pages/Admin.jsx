@@ -20,6 +20,42 @@ function Admin() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
 
+  // Auto-generate slug from title
+  function generateSlug(text) {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '') // Remove special characters
+      .replace(/\s+/g, '-')      // Replace spaces with hyphens
+      .replace(/-+/g, '-');      // Replace multiple hyphens with single hyphen
+  }
+
+  function handleTitleChange(newTitle) {
+    setTitle(newTitle);
+    setSlug(generateSlug(newTitle));
+  }
+
+  // Insert formatting into textarea
+  function insertFormat(before, after) {
+    const textarea = document.getElementById('content');
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = content.substring(start, end);
+    const newContent =
+      content.substring(0, start) +
+      before + selectedText + after +
+      content.substring(end);
+
+    setContent(newContent);
+
+    // Set cursor position after insertion
+    setTimeout(() => {
+      textarea.focus();
+      const newCursorPos = selectedText ? end + before.length + after.length : start + before.length;
+      textarea.setSelectionRange(newCursorPos, newCursorPos);
+    }, 0);
+  }
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => setUser(u));
     return () => unsub();
@@ -127,34 +163,75 @@ function Admin() {
       <section>
         <h2>New Post</h2>
         <form className="stack" onSubmit={handleSavePost}>
-          <input
-            type="text"
-            placeholder="Title (e.g., 'How I Built My Site')"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Slug (e.g., 'how-i-built-my-site')"
-            value={slug}
-            onChange={(e) => setSlug(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Tags (comma separated, e.g., react, portfolio)"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-          />
-          <textarea
-            rows={12}
-            placeholder="Content (Markdown-ish text)"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
+          <div>
+            <label htmlFor="title">Title</label>
+            <input
+              id="title"
+              type="text"
+              placeholder="e.g., 'How I Built My Site'"
+              value={title}
+              onChange={(e) => handleTitleChange(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="slug">Slug (auto-generated, edit if needed)</label>
+            <input
+              id="slug"
+              type="text"
+              placeholder="Auto-generated from title"
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="tags">Tags</label>
+            <input
+              id="tags"
+              type="text"
+              placeholder="comma separated, e.g., react, portfolio"
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
+            />
+          </div>
+
+          <div className="editor-container">
+            <label htmlFor="content">Content</label>
+            <div className="editor-toolbar">
+              <button type="button" onClick={() => insertFormat('**', '**')} title="Bold">
+                <strong>B</strong>
+              </button>
+              <button type="button" onClick={() => insertFormat('*', '*')} title="Italic">
+                <em>I</em>
+              </button>
+              <button type="button" onClick={() => insertFormat('## ', '')} title="Heading">
+                H2
+              </button>
+              <button type="button" onClick={() => insertFormat('- ', '')} title="Bullet List">
+                •
+              </button>
+              <button type="button" onClick={() => insertFormat('[', '](url)')} title="Link">
+                Link
+              </button>
+              <button type="button" onClick={() => insertFormat('`', '`')} title="Code">
+                {'</>'}
+              </button>
+            </div>
+            <textarea
+              id="content"
+              className="content-editor"
+              rows={16}
+              placeholder="Write your post content here..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
+          </div>
+
           <button className="btn" type="submit" disabled={saving}>
             {saving ? "Saving…" : "Save Post"}
           </button>
-          {message && <p>{message}</p>}
+          {message && <p className="message">{message}</p>}
         </form>
       </section>
     </div>
