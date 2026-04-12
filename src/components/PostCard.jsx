@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function PostCard({ post, isAdmin }) {
+function PostCard({ post, isAdmin, onDelete }) {
   return (
     <article className="card">
       <h3>
@@ -11,9 +11,19 @@ function PostCard({ post, isAdmin }) {
         {post.date} · {post.tags.join(", ")}
       </p>
       <p>{post.excerpt}</p>
-      <Link to={`/blog/${post.slug}`} className="read-more">
-        Read more →
-      </Link>
+      <div className="card-actions">
+        <Link to={`/blog/${post.slug}`} className="read-more">
+          Read more →
+        </Link>
+        {isAdmin && (
+          <button
+            className="btn-danger"
+            onClick={() => onDelete(post.slug)}
+          >
+            Delete
+          </button>
+        )}
+      </div>
     </article>
   );
 }

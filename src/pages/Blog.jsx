@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import PostCard from "../components/PostCard.jsx";
@@ -10,12 +10,22 @@ function Blog() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  async function handleDelete(slug) {
+    if (!window.confirm(`Delete post "${slug}"? This cannot be undone.`)) return;
+    try {
+      await deleteDoc(doc(db, "posts", slug));
+      setPosts((prev) => prev.filter((p) => p.slug !== slug));
+    } catch (err) {
+      console.error("Failed to delete post", err);
+    }
+  }
+
   useEffect(() => {
     async function loadPosts() {
       try {
         const q = query(collection(db, "posts"), orderBy("date", "desc"));
         const snapshot = await getDocs(q);
-        const list = snapshot.docs.map((doc) => doc.data());
+        const list = snapshot.docs.map((d) => d.data());
         setPosts(list);
       } catch (err) {
         console.error("Failed to load posts", err);
@@ -51,7 +61,7 @@ function Blog() {
       <div className="stack">
         {visiblePosts.length === 0 && <p>No posts yet.</p>}
         {visiblePosts.map((post) => (
-          <PostCard key={post.slug} post={post} isAdmin={!!user} />
+          <PostCard key={post.slug} post={post} isAdmin={!!user} onDelete={handleDelete} />
         ))}
       </div>
     </div>

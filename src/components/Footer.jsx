@@ -6,15 +6,15 @@ function Footer() {
       <div className="container footer-inner">
         <p>© {year} Joe Majors. All rights reserved.</p>
         <p className="footer-links">
-          <a href="https://github.com/YOUR_GITHUB" target="_blank" rel="noreferrer">
+          <a href="https://github.com/DyslexicLemons" target="_blank" rel="noreferrer">
             GitHub
           </a>
           <span>·</span>
-          <a href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noreferrer">
+          <a href="https://www.linkedin.com/in/joseph-majors-dfwl13123/" target="_blank" rel="noreferrer">
             LinkedIn
           </a>
           <span>·</span>
-          <a href="mailto:youremail@example.com">Email</a>
+          <a href="mailto:jmajors200@gmail.com">Email</a>
         </p>
       </div>
     </footer>
