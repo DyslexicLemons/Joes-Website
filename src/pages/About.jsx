@@ -5,9 +5,14 @@ function About() {
         <h1>About Me</h1>
         <p>Building things that work, securing things that matter</p>
       </header>
-      <div className="stack">
-        <div className="about-section">
-          <h2>What I Do</h2>
+
+      <div className="about-intro">
+        <img
+          src="/headshot.png"
+          alt="Joe Majors"
+          className="about-headshot"
+        />
+        <div className="about-intro-text">
           <p>
             I'm a software developer who believes the best code is code that solves real problems.
             With a Security+ certification and a computer science background, I build systems that
@@ -15,7 +20,9 @@ function About() {
             workflow automation.
           </p>
         </div>
+      </div>
 
+      <div className="stack">
         <div className="about-section">
           <h2>Technical Stack</h2>
           <p>
