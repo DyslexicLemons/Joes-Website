@@ -16,12 +16,14 @@ function Home() {
           Hey, I'm <span className="name-highlight">Joe</span>
         </h1>
         <p className="hero-subtitle">
-          I build <span className="text-accent">real systems</span> that people actually use.
-          Software developer with Security+ certification—I care about how things work
-          under the hood and making them secure by design.
+          Logistics Software Engineer specializing in <span className="text-accent">automation and full-stack systems</span>.
+          IU CS grad with an AI specialization and Security+ certification—I care about how things work
+          under the hood and building them secure by design.
         </p>
         <div className="hero-skills">
           <span className="skill-tag">Python</span>
+          <span className="skill-tag">C++</span>
+          <span className="skill-tag">Java</span>
           <span className="skill-tag">React</span>
           <span className="skill-tag">PostgreSQL</span>
           <span className="skill-tag">Security+</span>

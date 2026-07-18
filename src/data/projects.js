@@ -10,12 +10,13 @@ export const projects = [
   },
   {
     slug: "pharmacy-workflow-app",
-    name: "Pharmacy Workflow App",
-    stack: "FastAPI · React · PostgreSQL",
+    name: "Full-Stack Pharmacy Platform",
+    stack: "React/TypeScript · FastAPI · PostgreSQL · AWS · Terraform",
     description:
-      "Prototype system to manage prescriptions, refills, and pharmacy tasks.",
+      "Full-stack pharmacy app with a state workflow for prescriptions, JWT auth, three-tier RBAC, and Redis caching. AWS infrastructure provisioned via Terraform (ECS Fargate, RDS, CloudFront, ALB). CI/CD via GitHub Actions with parallel test jobs, Docker image builds, and CDN cache invalidation. Async task system using Celery with Beat scheduler for prescription expiration and refill scheduling.",
     github: "https://github.com/DyslexicLemons/PharmacyApp",
     demo: "",
+    detailPath: "/projects/pharmacy-workflow-app",
   },
   {
     slug: "commit-game",
