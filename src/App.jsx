@@ -8,6 +8,7 @@ import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import Admin from "./pages/Admin.jsx";
 import CreatePost from "./pages/CreatePost.jsx";
+import PharmacyWriteup from "./pages/PharmacyWriteup.jsx";
 
 
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/pharmacy-workflow-app" element={<PharmacyWriteup />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/create" element={<CreatePost />} />
         <Route path="/blog/:slug" element={<Post />} />

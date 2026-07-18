@@ -14,22 +14,81 @@ function About() {
         />
         <div className="about-intro-text">
           <p>
-            I'm a software developer who believes the best code is code that solves real problems.
-            With a Security+ certification and a computer science background, I build systems that
-            are both functional and secure by design—especially tools for training, operations, and
-            workflow automation.
+            I'm a Logistics Software Engineer with 3+ years of experience in Python, C++, Java, and
+            relational databases, specializing in automation and full-stack systems. Indiana University
+            graduate with a B.S. in Computer Science and a specialization in Artificial Intelligence.
+            I hold a CompTIA Security+ certification and care about building systems that are both
+            functional and secure by design.
           </p>
         </div>
       </div>
 
       <div className="stack">
         <div className="about-section">
+          <h2>Experience</h2>
+
+          <div className="experience-item">
+            <div className="experience-header">
+              <strong>Logistics Software Engineer – Automation</strong>
+              <span className="experience-date">December 2024 – Present</span>
+            </div>
+            <div className="experience-company">KNAPP Logistics | Whiteland, IN</div>
+            <ul>
+              <li>
+                <strong>PLC &amp; Software Development/Installation:</strong> Engineered and deployed SQL,
+                Python, C++, Bash, and Java solutions via Azure DevOps CI/CD pipelines to optimize and
+                repair tote storage &amp; retrieval software efficiency.
+              </li>
+              <li>
+                <strong>SCADA CLI Dashboard</strong> (Python, JavaScript, Bash, Oracle SQL): Developed a
+                terminal-based real-time operations monitoring dashboard integrating live Oracle SQL
+                database queries across multiple subsystems, using a decoupled producer-consumer pipeline
+                with atomic data writes, modular metric collection, and configurable threshold-driven alerting.
+              </li>
+            </ul>
+          </div>
+
+          <div className="experience-item">
+            <div className="experience-header">
+              <strong>IT Supervisor / Consultant</strong>
+              <span className="experience-date">August 2022 – December 2024</span>
+            </div>
+            <div className="experience-company">IU Support Center | Bloomington, IN</div>
+            <ul>
+              <li>
+                <strong>Tech Support:</strong> Provided support and troubleshooting to university faculty,
+                staff, and students via ServiceNow, Microsoft Azure, and SCCM — completing over 3,000
+                phone calls and 10,000 emails.
+              </li>
+              <li>
+                <strong>Linux Team Sub-Lead:</strong> Specialized in troubleshooting Linux OS issues
+                including VPN certificates, software installation, dual-boot, and package management.
+              </li>
+              <li>
+                <strong>Training &amp; Documentation:</strong> Created training materials and scheduling
+                for 30+ new hires. Contributed to global KB documentation viewed by 30,000+ students,
+                faculty, and staff.
+              </li>
+              <li>
+                <strong>Hiring Team:</strong> Reviewed 300+ resumes, processed new hire applications,
+                and conducted 30 interviews.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="about-section">
           <h2>Technical Stack</h2>
           <p>
-            I work across the full stack with <strong>Python</strong>, <strong>JavaScript/TypeScript</strong>,
-            <strong>React</strong>, and <strong>SQL</strong> (PostgreSQL, Oracle). I also write <strong>C++</strong> when
-            performance matters. What I enjoy most is understanding systems from the hardware level all the way
-            up to the UI—that complete picture helps me build better software.
+            <strong>Proficient (3+ years):</strong> Python, C++, Java, Bash, Oracle/Postgres SQL,
+            JavaScript, TypeScript
+          </p>
+          <p>
+            <strong>Tools &amp; Frameworks:</strong> React, SQLAlchemy, FastAPI, Azure DevOps, Docker,
+            AWS, Postman, VSCode, RStudio, IntelliJ, Spring Boot
+          </p>
+          <p>
+            <strong>Certifications:</strong> CompTIA Security+
           </p>
         </div>
 
