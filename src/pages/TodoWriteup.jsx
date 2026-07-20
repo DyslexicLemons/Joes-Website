@@ -78,7 +78,7 @@ function TodoWriteup() {
       <header className="masthead">
         <div className="masthead-inner">
           <p className="eyebrow">Technical Architecture Overview</p>
-          <h1>Sized by Time</h1>
+          <h1>Todo App</h1>
           <p className="dek">
             A gamified to-do app that files tasks by how long they take
             instead of when they're due, layered with per-task streaks, a
