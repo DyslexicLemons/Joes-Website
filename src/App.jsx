@@ -9,6 +9,7 @@ import Contact from "./pages/Contact.jsx";
 import Admin from "./pages/Admin.jsx";
 import CreatePost from "./pages/CreatePost.jsx";
 import PharmacyWriteup from "./pages/PharmacyWriteup.jsx";
+import TodoWriteup from "./pages/TodoWriteup.jsx";
 
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/pharmacy-workflow-app" element={<PharmacyWriteup />} />
+        <Route path="/projects/todo-app" element={<TodoWriteup />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/create" element={<CreatePost />} />
         <Route path="/blog/:slug" element={<Post />} />

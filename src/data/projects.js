@@ -26,5 +26,6 @@ export const projects = [
       "Gamified task manager that organizes to-dos by estimated duration (Quick/Small/Medium/Long-Term) instead of due dates, with per-task streak tracking and motivational nudges to reduce friction.",
     github: "https://github.com/DyslexicLemons/TodoApp",
     demo: "",
+    detailPath: "/projects/todo-app",
   },
 ];
