@@ -21,9 +21,9 @@ export const projects = [
   {
     slug: "todo-app",
     name: "Todo App",
-    stack: "JavaScript",
+    stack: "Angular · Node.js/Express · MongoDB · Docker",
     description:
-      "A task management app for creating, tracking, and completing to-do items.",
+      "Gamified task manager that organizes to-dos by estimated duration (Quick/Small/Medium/Long-Term) instead of due dates, with per-task streak tracking and motivational nudges to reduce friction.",
     github: "https://github.com/DyslexicLemons/TodoApp",
     demo: "",
   },
