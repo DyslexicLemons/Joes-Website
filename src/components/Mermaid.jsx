@@ -3,26 +3,26 @@ import mermaid from "mermaid";
 
 const lightVars = {
   background: "#ffffff",
-  primaryColor: "#e9edea",
-  primaryTextColor: "#182220",
-  primaryBorderColor: "#c3ccc6",
-  lineColor: "#5c6b66",
+  primaryColor: "#e8e5d9",
+  primaryTextColor: "#1b1f1a",
+  primaryBorderColor: "#c7c0ac",
+  lineColor: "#62685f",
   secondaryColor: "#fbf1e1",
-  tertiaryColor: "#f3f5f2",
-  textColor: "#182220",
+  tertiaryColor: "#f0efe6",
+  textColor: "#1b1f1a",
   fontFamily:
     '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
 };
 
 const darkVars = {
-  background: "#161d1a",
-  primaryColor: "#1b2320",
-  primaryTextColor: "#e7ece8",
-  primaryBorderColor: "#34423a",
-  lineColor: "#8fa39b",
+  background: "#1b2123",
+  primaryColor: "#20272a",
+  primaryTextColor: "#eae6d9",
+  primaryBorderColor: "#3d4744",
+  lineColor: "#a2ab9e",
   secondaryColor: "#241c10",
-  tertiaryColor: "#101513",
-  textColor: "#e7ece8",
+  tertiaryColor: "#14181a",
+  textColor: "#eae6d9",
   fontFamily:
     '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
 };

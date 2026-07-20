@@ -325,8 +325,8 @@
   width: 1.35rem;
   height: 1.35rem;
   border-radius: 50%;
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--accent-warm);
+  color: var(--accent-warm-ink);
   font-family: var(--mono);
   font-size: 0.7rem;
   display: flex;

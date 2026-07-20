@@ -1,19 +1,21 @@
 :root {
-  --paper: #f3f5f2;
+  --paper: #f0efe6;
   --paper-raised: #ffffff;
-  --ink: #182220;
-  --muted: #5c6b66;
-  --accent: #1f6f5c;
+  --ink: #1b1f1a;
+  --muted: #62685f;
+  --accent: #2f6a63;
   --accent-ink: #ffffff;
-  --accent-soft: rgba(31, 111, 92, 0.08);
+  --accent-soft: rgba(47, 106, 99, 0.08);
+  --accent-warm: #c85a26;
+  --accent-warm-ink: #ffffff;
   --amber: #a8650f;
   --amber-bg: #fbf1e1;
   --amber-line: #e6c48a;
-  --line: #dde3de;
-  --line-strong: #c3ccc6;
-  --code-bg: #e9edea;
+  --line: #d9d5c6;
+  --line-strong: #c7c0ac;
+  --code-bg: #e8e5d9;
   --danger: #b3452f;
-  --shadow: 0 1px 2px rgba(24, 34, 32, 0.06), 0 8px 24px rgba(24, 34, 32, 0.05);
+  --shadow: 0 1px 2px rgba(27, 31, 26, 0.06), 0 8px 24px rgba(27, 31, 26, 0.06);
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia,
     serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
@@ -24,21 +26,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #101513;
-    --paper-raised: #161d1a;
-    --ink: #e7ece8;
-    --muted: #8fa39b;
-    --accent: #56c7a4;
+    --paper: #14181a;
+    --paper-raised: #1b2123;
+    --ink: #eae6d9;
+    --muted: #a2ab9e;
+    --accent: #6fb3ab;
     --accent-ink: #0a1210;
-    --accent-soft: rgba(86, 199, 164, 0.1);
+    --accent-soft: rgba(111, 179, 171, 0.1);
+    --accent-warm: #e8834a;
+    --accent-warm-ink: #1b1206;
     --amber: #e3a24a;
     --amber-bg: #241c10;
     --amber-line: #4a3a1c;
-    --line: #263129;
-    --line-strong: #34423a;
-    --code-bg: #1b2320;
+    --line: #333c3a;
+    --line-strong: #3d4744;
+    --code-bg: #20272a;
     --danger: #e07856;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 30px rgba(0, 0, 0, 0.35);
   }
 }
 
@@ -185,7 +189,7 @@ nav .nav-link.active::after {
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-warm);
   margin-bottom: 1.2rem;
 }
 
@@ -196,7 +200,7 @@ nav .nav-link.active::after {
 }
 
 .name-highlight {
-  color: var(--accent);
+  color: var(--accent-warm);
 }
 
 .hero-subtitle {
@@ -257,8 +261,8 @@ nav .nav-link.active::after {
 }
 
 .btn {
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--accent-warm);
+  color: var(--accent-warm-ink);
 }
 
 .btn:hover {
