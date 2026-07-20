@@ -19,12 +19,12 @@ export const projects = [
     detailPath: "/projects/pharmacy-workflow-app",
   },
   {
-    slug: "commit-game",
-    name: "Commit Game",
-    stack: "Node.js · Git Hooks",
+    slug: "todo-app",
+    name: "Todo App",
+    stack: "JavaScript",
     description:
-      "A gamified system that rewards consistent Git commits with XP and levels.",
-    github: "https://github.com/your-username/commit-game",
+      "A task management app for creating, tracking, and completing to-do items.",
+    github: "https://github.com/DyslexicLemons/TodoApp",
     demo: "",
   },
 ];
