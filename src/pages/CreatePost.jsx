@@ -1,14 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { db } from "../firebase.js";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useDictation } from "../hooks/useDictation.js";
+
+const PINNED_TAG = "journal";
 
 function formatDuration(totalSeconds) {
   const m = Math.floor(totalSeconds / 60);
   const s = totalSeconds % 60;
   return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+function sortTagsWithPinnedFirst(tagList) {
+  return [...tagList].sort((a, b) => {
+    if (a === PINNED_TAG) return -1;
+    if (b === PINNED_TAG) return 1;
+    return a.localeCompare(b);
+  });
 }
 
 function CreatePost() {
@@ -17,7 +27,10 @@ function CreatePost() {
 
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
-  const [tags, setTags] = useState("");
+  const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState("");
+  const [availableTags, setAvailableTags] = useState([PINNED_TAG]);
+  const [showTagDropdown, setShowTagDropdown] = useState(false);
   const [content, setContent] = useState("");
   const [hidden, setHidden] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -25,6 +38,7 @@ function CreatePost() {
 
   const dictation = useDictation();
   const dictationInsertionRef = useRef(null);
+  const tagInputRef = useRef(null);
   const [dictationSeconds, setDictationSeconds] = useState(0);
 
   // Splice the live transcript into the spot the cursor was at when dictation started.
@@ -44,6 +58,22 @@ function CreatePost() {
     }, 1000);
     return () => clearInterval(interval);
   }, [dictation.isRecording]);
+
+  useEffect(() => {
+    async function loadTags() {
+      try {
+        const snapshot = await getDocs(collection(db, "posts"));
+        const tagSet = new Set([PINNED_TAG]);
+        snapshot.docs.forEach((d) => {
+          (d.data().tags || []).forEach((t) => tagSet.add(t));
+        });
+        setAvailableTags(sortTagsWithPinnedFirst([...tagSet]));
+      } catch (err) {
+        console.error("Failed to load tags", err);
+      }
+    }
+    loadTags();
+  }, []);
 
   if (!user) {
     return <Navigate to="/admin" replace />;
@@ -82,6 +112,26 @@ function CreatePost() {
     }, 0);
   }
 
+  function addTag(rawTag) {
+    const tag = rawTag.trim().toLowerCase();
+    if (!tag) return;
+    setTags((prev) => (prev.includes(tag) ? prev : [...prev, tag]));
+    setTagInput("");
+  }
+
+  function removeTag(tag) {
+    setTags((prev) => prev.filter((t) => t !== tag));
+  }
+
+  function handleTagInputKeyDown(e) {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      addTag(tagInput);
+    } else if (e.key === "Backspace" && !tagInput && tags.length > 0) {
+      setTags((prev) => prev.slice(0, -1));
+    }
+  }
+
   function handleDictationToggle() {
     if (dictation.isRecording) {
       dictation.stop();
@@ -112,8 +162,7 @@ function CreatePost() {
       const now = new Date().toISOString().slice(0, 10);
       const tagsArray = [
         ...new Set(
-          tags
-            .split(",")
+          [...tags, tagInput]
             .map((t) => t.trim().toLowerCase())
             .filter(Boolean)
         ),
@@ -136,6 +185,12 @@ function CreatePost() {
       setSaving(false);
     }
   }
+
+  const dropdownTags = availableTags.filter(
+    (tag) =>
+      !tags.includes(tag) &&
+      (tagInput.trim() === "" || tag.includes(tagInput.trim().toLowerCase()))
+  );
 
   return (
     <div className="container">
@@ -168,13 +223,57 @@ function CreatePost() {
 
         <div>
           <label htmlFor="tags">Tags</label>
-          <input
-            id="tags"
-            type="text"
-            placeholder="comma separated, e.g., react, portfolio"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-          />
+          <div className="tag-input-wrap">
+            <div className="tag-chips" onClick={() => tagInputRef.current?.focus()}>
+              {tags.map((tag) => (
+                <span key={tag} className="tag-chip">
+                  {tag}
+                  <button
+                    type="button"
+                    className="tag-chip-remove"
+                    onClick={() => removeTag(tag)}
+                    aria-label={`Remove ${tag} tag`}
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+              <input
+                id="tags"
+                ref={tagInputRef}
+                type="text"
+                placeholder={tags.length ? "" : "Type or select a tag…"}
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+                onFocus={() => setShowTagDropdown(true)}
+                onBlur={() => setTimeout(() => setShowTagDropdown(false), 150)}
+                onKeyDown={handleTagInputKeyDown}
+              />
+            </div>
+            {showTagDropdown && (
+              <ul className="tag-dropdown">
+                {dropdownTags.length > 0 ? (
+                  dropdownTags.map((tag) => (
+                    <li key={tag}>
+                      <button
+                        type="button"
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => addTag(tag)}
+                      >
+                        {tag}
+                      </button>
+                    </li>
+                  ))
+                ) : (
+                  <li className="tag-dropdown-empty">
+                    {tagInput.trim()
+                      ? `Press Enter to add "${tagInput.trim().toLowerCase()}"`
+                      : "No previous tags yet"}
+                  </li>
+                )}
+              </ul>
+            )}
+          </div>
         </div>
 
         <div className="editor-container">

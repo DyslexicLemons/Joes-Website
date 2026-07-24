@@ -664,6 +664,127 @@ nav .nav-link.active::after {
   resize: vertical;
 }
 
+.tag-input-wrap {
+  position: relative;
+}
+
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  cursor: text;
+  transition: all 0.2s ease;
+}
+
+.tag-chips:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.tag-chips input {
+  flex: 1 1 8rem;
+  min-width: 8rem;
+  width: auto !important;
+  padding: 0.2rem !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tag-chips input:focus {
+  outline: none;
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.4rem 0.25rem 0.7rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.tag-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tag-chip-remove:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.tag-dropdown {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  right: 0;
+  max-height: 14rem;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+}
+
+.tag-dropdown li + li {
+  margin-top: 0.15rem;
+}
+
+.tag-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--ink);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tag-dropdown button:hover,
+.tag-dropdown button:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent);
+  outline: none;
+}
+
+.tag-dropdown-empty {
+  padding: 0.45rem 0.6rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .message {
   padding: 0.75rem;
   background: var(--accent-soft);
