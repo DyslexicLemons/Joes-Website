@@ -850,6 +850,15 @@ nav .nav-link.active::after {
   outline-offset: 2px;
 }
 
+.toggle input:disabled + .toggle-track {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.stack label.toggle:has(input:disabled) {
+  cursor: not-allowed;
+}
+
 .toggle-label {
   display: flex;
   flex-direction: column;

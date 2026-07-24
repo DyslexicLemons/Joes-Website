@@ -175,7 +175,7 @@ function CreatePost() {
         tags: tagsArray,
         excerpt: content.slice(0, 160) + (content.length > 160 ? "…" : ""),
         content,
-        hidden,
+        hidden: hidden || tagsArray.includes(PINNED_TAG),
       });
 
       navigate(`/blog/${slug}`);
@@ -191,6 +191,8 @@ function CreatePost() {
       !tags.includes(tag) &&
       (tagInput.trim() === "" || tag.includes(tagInput.trim().toLowerCase()))
   );
+
+  const journalHidden = tags.includes(PINNED_TAG);
 
   return (
     <div className="container">
@@ -333,7 +335,8 @@ function CreatePost() {
           <label className="toggle">
             <input
               type="checkbox"
-              checked={hidden}
+              checked={hidden || journalHidden}
+              disabled={journalHidden}
               onChange={(e) => setHidden(e.target.checked)}
             />
             <span className="toggle-track">
@@ -341,7 +344,11 @@ function CreatePost() {
             </span>
             <span className="toggle-label">
               Hidden
-              <small>Only visible to you while logged in as admin</small>
+              <small>
+                {journalHidden
+                  ? "Automatically hidden because it's tagged journal"
+                  : "Only visible to you while logged in as admin"}
+              </small>
             </span>
           </label>
         </div>
