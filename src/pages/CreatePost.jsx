@@ -160,14 +160,20 @@ function CreatePost() {
           />
         </div>
 
-        <div>
-          <label>
+        <div className="toggle-field">
+          <label className="toggle">
             <input
               type="checkbox"
               checked={hidden}
               onChange={(e) => setHidden(e.target.checked)}
-            />{" "}
-            Hidden (admin only)
+            />
+            <span className="toggle-track">
+              <span className="toggle-thumb" />
+            </span>
+            <span className="toggle-label">
+              Hidden
+              <small>Only visible to you while logged in as admin</small>
+            </span>
           </label>
         </div>
 
