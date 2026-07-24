@@ -65,10 +65,14 @@ function CreatePost() {
 
     try {
       const now = new Date().toISOString().slice(0, 10);
-      const tagsArray = tags
-        .split(",")
-        .map((t) => t.trim())
-        .filter(Boolean);
+      const tagsArray = [
+        ...new Set(
+          tags
+            .split(",")
+            .map((t) => t.trim().toLowerCase())
+            .filter(Boolean)
+        ),
+      ];
 
       await setDoc(doc(db, "posts", slug), {
         slug,
