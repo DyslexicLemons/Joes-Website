@@ -623,6 +623,39 @@ nav .nav-link.active::after {
   color: var(--accent);
 }
 
+.dictation-btn {
+  margin-left: auto;
+  min-width: auto !important;
+  white-space: nowrap;
+}
+
+.dictation-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dictation-btn.recording {
+  background: #e6453c;
+  border-color: #e6453c;
+  color: #fff;
+  animation: dictation-pulse 1.6s ease-in-out infinite;
+}
+
+.dictation-btn.recording:hover {
+  color: #fff;
+}
+
+@keyframes dictation-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.75; }
+}
+
+.dictation-status {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
 .content-editor {
   border-radius: 0 0 5px 5px !important;
   font-family: var(--mono);

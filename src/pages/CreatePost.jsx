@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { db } from "../firebase.js";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext.jsx";
+import { useDictation } from "../hooks/useDictation.js";
+
+function formatDuration(totalSeconds) {
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
 
 function CreatePost() {
   const user = useAuth();
@@ -15,6 +22,28 @@ function CreatePost() {
   const [hidden, setHidden] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+
+  const dictation = useDictation();
+  const dictationInsertionRef = useRef(null);
+  const [dictationSeconds, setDictationSeconds] = useState(0);
+
+  // Splice the live transcript into the spot the cursor was at when dictation started.
+  useEffect(() => {
+    const insertion = dictationInsertionRef.current;
+    if (!insertion) return;
+    const { before, after } = insertion;
+    const spacer = before && !/\s$/.test(before) ? " " : "";
+    setContent(before + spacer + dictation.transcript + after);
+  }, [dictation.transcript]);
+
+  useEffect(() => {
+    if (!dictation.isRecording) return;
+    const startedAt = Date.now();
+    const interval = setInterval(() => {
+      setDictationSeconds(Math.floor((Date.now() - startedAt) / 1000));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [dictation.isRecording]);
 
   if (!user) {
     return <Navigate to="/admin" replace />;
@@ -51,6 +80,22 @@ function CreatePost() {
       const newCursorPos = selectedText ? end + before.length + after.length : start + before.length;
       textarea.setSelectionRange(newCursorPos, newCursorPos);
     }, 0);
+  }
+
+  function handleDictationToggle() {
+    if (dictation.isRecording) {
+      dictation.stop();
+      return;
+    }
+
+    const textarea = document.getElementById('content');
+    const cursor = textarea ? textarea.selectionStart : content.length;
+    dictationInsertionRef.current = {
+      before: content.slice(0, cursor),
+      after: content.slice(cursor),
+    };
+    setDictationSeconds(0);
+    dictation.start();
   }
 
   async function handleSavePost(e) {
@@ -153,7 +198,27 @@ function CreatePost() {
             <button type="button" onClick={() => insertFormat('`', '`')} title="Code">
               {'</>'}
             </button>
+            <button
+              type="button"
+              className={`dictation-btn${dictation.isRecording ? " recording" : ""}`}
+              onClick={handleDictationToggle}
+              disabled={!dictation.isSupported}
+              title={
+                !dictation.isSupported
+                  ? "Dictation isn't supported in this browser"
+                  : dictation.isRecording
+                  ? "Stop dictation"
+                  : "Start dictation"
+              }
+            >
+              {dictation.isRecording
+                ? `⏹ Stop ${formatDuration(dictationSeconds)}`
+                : "🎤 Dictate"}
+            </button>
           </div>
+          {dictation.status && (
+            <p className="dictation-status">{dictation.status}</p>
+          )}
           <textarea
             id="content"
             className="content-editor"
@@ -161,6 +226,7 @@ function CreatePost() {
             placeholder="Write your post content here..."
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            readOnly={dictation.isRecording}
           />
         </div>
 
